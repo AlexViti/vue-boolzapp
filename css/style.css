@@ -18,6 +18,7 @@ html {
 	--bg-footer: #f3eeea;
 	--notification-banner-color: #8edafc;
 	--gray-color: #b1b1b1;
+	--container-border: #d6d6d6;
 
 	--bg-top-height: 145px;
 	--avatar-size: 50px;
@@ -78,6 +79,7 @@ body {
 
 .left-container {
 	flex-grow: 1;
+	border-right: 1px solid var(--container-border);
 }
 
 .right-container {
@@ -142,10 +144,18 @@ input[type=text] {
 	border-radius: 2px;
 }
 
+textarea:focus, input[type=text]:focus {
+	outline: none;
+}
+
 .chat-display,
-.chat-wrapper {
+.chats-wrapper {
 	flex-grow: 1;
 	overflow-y: scroll;
+}
+
+.chat + .chat {
+	border-top: 1px solid var(--bg-chat-selected);
 }
 
 .chat.selected {
@@ -185,7 +195,6 @@ input[type=text] {
 	margin-top: 1rem;
 }
 
-
 .received-message {
 	background-color: white;
 	align-self: flex-start;
@@ -200,9 +209,8 @@ input[type=text] {
 	padding: .6em;
 }
 
-.send-date {
+.message .date {
 	padding: 0 .5em .3em 0;
-	font-size: .6rem;
 	align-self: flex-end;
 }
 

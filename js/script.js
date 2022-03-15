@@ -29,37 +29,37 @@ const app = new Vue({
 			},
 			{
 				user: new User('Fabio', 2),
-				messages: [],
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
 				lastAccess: '12:00'
 			},
 			{
 				user: new User('Alessandro L.', 3),
-				messages: [],
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
 				lastAccess: '12:00'
 			},
 			{
 				user: new User('Alessandro B.', 4),
-				messages: [],
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
 				lastAccess: '12:00'
 			},
 			{
 				user: new User('Sofia', 5),
-				messages: [],
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
 				lastAccess: '12:00'
 			},
 			{
 				user: new User('Claudia', 6),
-				messages: [],
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
 				lastAccess: '12:00'
 			},
 			{
 				user: new User('Federico', 7),
-				messages: [],
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
 				lastAccess: '12:00'
 			},
 			{
 				user: new User('Davide', 8),
-				messages: [],
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
 				lastAccess: '12:00'
 			},
 		],

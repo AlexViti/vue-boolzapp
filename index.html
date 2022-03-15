@@ -44,16 +44,14 @@
 					<button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
 					<input type="text" id="search-input" placeholder="Cerca o inizia una nuova chat">
 				</div>
-				<div class="chat-wrapper">
-					<div v-for="(element,index) in chats" class="chats">
-						<div class="chat flex-align-center" :class="{selected : index == chatIndex}">
-							<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
-							<div>
-								<div class="username">{{ element.user.name }}</div>
-								<div class="last-msg">Ultimo messaggio inviato</div>
-							</div>
-							<div class="date">12:00</div>
+				<div class="chats-wrapper">
+					<div v-for="(element,index) in chats" class="chat flex-align-center" :class="{selected : index == chatIndex}">
+						<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
+						<div>
+							<div class="username">{{ element.user.name }}</div>
+							<div class="last-msg">{{ element.messages[element.messages.length - 1].text }}</div>
 						</div>
+						<div class="date">{{ element.messages[element.messages.length - 1].date }}</div>
 					</div>
 				</div>
 				</div>
@@ -75,7 +73,7 @@
 				<div class="chat-display">
 					<div v-for="(element,index) in chats[chatIndex].messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
 						<div class="text">{{ element.text }}</div>
-						<div class="send-date">{{ element.date }}</div>
+						<div class="date">{{ element.date }}</div>
 					</div>
 				</div>
 				<footer class="new-message flex-align-center">

@@ -42,7 +42,8 @@ const app = new Vue({
 				user: new User('Davide', 8),
 				messages: []
 			},
-		]
+		],
+		chatIndex: 0
 	},
 	methods: {
 

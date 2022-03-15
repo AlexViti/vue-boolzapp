@@ -24,7 +24,7 @@
 			<div class="left-container">
 				<header>
 					<div class="user">
-						<img src="" alt="" class="avatar">
+						<img :src="myUser.avatar" :alt="myUser.name" class="avatar">
 						<div class="username">Alessio</div>
 					</div>
 					<div class="btns">
@@ -37,13 +37,13 @@
 					<!-- TODO: -->
 				</div>
 				<div class="search-bar">
-					<butbutton class="btn btn-search"></butbutton>
+					<button class="btn btn-search"></button>
 					<input type="text" class="search" placeholder="Cerca o inizia una nuova chat">
 				</div>
-				<div class="chats">
+				<div v-for="(element,index) in chats" class="chats">
 					<div class="chat">
-						<img src="" alt="" class="avatar">
-						<div class="username">Michele</div>
+						<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
+						<div class="username">{{ element.user.name }}</div>
 						<div class="last-msg">Ultimo messaggio inviato</div>
 						<div class="date">12:00</div>
 					</div>
@@ -52,8 +52,8 @@
 			<div class="right-container">
 				<header>
 					<div class="user">
-						<img src="" alt="" class="avatar">
-						<div class="username">Michele</div>
+						<img :src="chats[chatIndex].user.avatar" :alt="chats[chatIndex].user.name" class="avatar">
+						<div class="username">{{ chats[chatIndex].user.name }}</div>
 					</div>
 					<div class="btns">
 						<button class="btn btn-search"></button>
@@ -61,7 +61,7 @@
 						<button class="btn btn-menu"></button>
 					</div>
 				</header>
-				<div class="chat">
+				<div class="chat-display">
 					<div class="message"></div>
 				</div>
 				<footer class="new-message">

@@ -5,6 +5,14 @@ class User {
 	}
 }
 
+class Message {
+	constructor (text, sent, date) {
+		this.text = text;
+		this.sent = sent;
+		this.date = date;
+	}
+}
+
 const app = new Vue({
 	el: '#root',
 	data: {
@@ -12,7 +20,11 @@ const app = new Vue({
 		chats: [
 			{
 				user: new User('Michele', 1),
-				messages: [],
+				messages: [
+					new Message('Hai portato a spasso il cane?', true,  '15:30'),
+					new Message('Ricordati di stendere i panni', true,  '15:50'),
+					new Message('Tutto fatto!',						false, '16:15'),
+				],
 				lastAccess: '12:00'
 			},
 			{

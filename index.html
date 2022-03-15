@@ -6,9 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="img/favicon-64x64.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="img/favicon/favicon-64x64.ico" type="image/x-icon">
 
 	<title>Boolzapp</title>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<!-- CSS stylesheet -->
 	<link rel="stylesheet" href="css/style.css">
@@ -16,7 +19,59 @@
 <body>
 	<!-- Vue container -->
 	<div id="root">
+		
+		<div class="wrapper">
+			<div class="left-container">
+				<header>
+					<div class="user">
+						<img src="" alt="" class="avatar">
+						<div class="username">Alessio</div>
+					</div>
+					<div class="btns">
+						<button class="btn btn-status"></button>
+						<button class="btn btn-new-chat"></button>
+						<button class="btn btn-menu"></button>
+					</div>
+				</header>
+				<div class="notification">
+					<!-- TODO: -->
+				</div>
+				<div class="search-bar">
+					<butbutton class="btn btn-search"></butbutton>
+					<input type="text" class="search" placeholder="Cerca o inizia una nuova chat">
+				</div>
+				<div class="chats">
+					<div class="chat">
+						<img src="" alt="" class="avatar">
+						<div class="username">Michele</div>
+						<div class="last-msg">Ultimo messaggio inviato</div>
+						<div class="date">12:00</div>
+					</div>
+				</div>
+			</div>
+			<div class="right-container">
+				<header>
+					<div class="user">
+						<img src="" alt="" class="avatar">
+						<div class="username">Michele</div>
+					</div>
+					<div class="btns">
+						<button class="btn btn-search"></button>
+						<button class="btn btn-attachment"></button>
+						<button class="btn btn-menu"></button>
+					</div>
+				</header>
+				<div class="chat">
+					<div class="message"></div>
+				</div>
+				<footer class="new-message">
+					<button class="btn btn-emoji"></button>
+					<input type="text" name="new-message" id="new-message" placeholder="Scrivi un messaggio">
+					<button class="btn btn-voice-record"></button>
+				</footer>
+			</div>
 
+		</div>
 	</div>
 	<!-- development version, includes helpful console warnings -->
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>

@@ -8,6 +8,8 @@
 	--bg-top: #00a884;
 	--bg-bottom: #eae6df;
 	--bg-bottom-deeper: #d1d7db;
+	--bg-my-message: #d5f9ba;
+
 	--bg-top-height: 150px;
 }
 
@@ -28,4 +30,19 @@ body {
 	background-color: white;
 	height: 100%;
 	margin: 0 auto;
+}
+
+.wrapper {
+	display: flex;
+	height: 100%;
+	width: 100%;
+}
+
+.message {
+	border-radius: 5px;
+	background-color: white;
+}
+
+.my-message {
+	background-color: var(--bg-my-message);
 }

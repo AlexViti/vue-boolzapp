@@ -16,73 +16,94 @@
 	<!-- CSS stylesheet -->
 	<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-	<!-- Vue container -->
-	<div id="root">
-		
-		<div class="wrapper">
-			<div class="left-container">
-				<header class="flex-align-center">
-					<div class="user flex-align-center">
-						<img :src="myUser.avatar" :alt="myUser.name" class="avatar">
-						<div class="username">Alessio</div>
-					</div>
-					<div class="btns">
-						<button class="btn btn-status"><i class="fa-solid fa-circle-notch"></i></button>
-						<button class="btn btn-new-chat"><i class="fa-solid fa-message"></i></button>
-						<button class="btn btn-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-					</div>
-				</header>
-				<div class="notification flex-align-center">
-					<div class="notification-bell"><i class="fa-solid fa-bell-slash"></i></div>
-					<div>
-						<div>Ricevi notifiche di nuovi messaggi</div>
-						<a href="#">Attiva notifiche desktop</a>
-					</div>
+
+	<!-- Vue app container -->
+	<div id="root" class="wrapper">
+
+		<!-- Container with a header, a banner and a chats list with a search-bar -->
+		<div class="left-container">
+
+			<!-- Header with user's profile and buttons -->
+			<header class="flex-align-center">
+
+				<div class="user flex-align-center">
+					<!-- User's avatar -->
+					<img :src="myUser.avatar" :alt="myUser.name" class="avatar">
+					<!-- User's name -->
+					<div class="username">Alessio</div>
 				</div>
-				<div class="search-bar flex-align-center">
-					<button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
-					<input type="text" id="search-input" placeholder="Cerca o inizia una nuova chat">
+				<!-- Buttons on the right -->
+				<div class="btns">
+					<button class="btn"><i class="fa-solid fa-circle-notch"></i></button>
+					<button class="btn"><i class="fa-solid fa-message"></i></button>
+					<button class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
 				</div>
-				<div class="chats-wrapper">
-					<div v-for="(element,index) in chats" class="chat flex-align-center" :class="{selected : index == chatIndex}">
-						<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
-						<div>
-							<div class="username">{{ element.user.name }}</div>
-							<div class="last-msg">{{ element.messages[element.messages.length - 1].text }}</div>
-						</div>
-						<div class="date">{{ element.messages[element.messages.length - 1].date }}</div>
-					</div>
+
+			</header>
+
+			<!-- Banner asking you to turn on notification -->
+			<div class="notification flex-align-center">
+				<div class="notification-bell"><i class="fa-solid fa-bell-slash"></i></div>
+				<div>
+					<div>Ricevi notifiche di nuovi messaggi</div>
+					<a href="#">Attiva notifiche desktop</a>
 				</div>
-				</div>
-			<div class="right-container">
-				<header class="flex-align-center">
-					<div class="user flex-align-center">
-						<img :src="chats[chatIndex].user.avatar" :alt="chats[chatIndex].user.name" class="avatar">
-						<div>
-							<div class="username">{{ chats[chatIndex].user.name }}</div>
-							<div class="last-access">Ultimo accesso oggi alle {{ chats[chatIndex].lastAccess }}</div>
-						</div>
-					</div>
-					<div class="btns">
-						<button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-						<button class="btn btn-attachment"><i class="fa-solid fa-paperclip"></i></button>
-						<button class="btn btn-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-					</div>
-				</header>
-				<div class="chat-display">
-					<div v-for="(element,index) in chats[chatIndex].messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
-						<div class="text">{{ element.text }}</div>
-						<div class="date">{{ element.date }}</div>
-					</div>
-				</div>
-				<footer class="new-message flex-align-center">
-					<button class="btn btn-emoji"><i class="fa-regular fa-face-smile"></i></button>
-					<input type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
-					<button class="btn btn-voice-record"><i class="fa-solid fa-microphone"></i></button>
-				</footer>
 			</div>
 
+			<!-- Search-bar for chats with a text input and a button -->
+			<div class="search-bar flex-align-center">
+				<button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+				<input type="text" id="search-input" placeholder="Cerca o inizia una nuova chat">
+			</div>
+
+			<!-- Chats container -->
+			<div class="chats-wrapper">
+				<div v-for="(element,index) in chats" class="chat flex-align-center" :class="{selected : index == chatIndex}">
+					<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
+					<div>
+						<div class="username">{{ element.user.name }}</div>
+						<div class="last-msg">{{ element.messages[element.messages.length - 1].text }}</div>
+					</div>
+					<div class="date">{{ element.messages[element.messages.length - 1].date }}</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Container with an header with interlocutor infos, the chat display and a footer with new message input -->
+		<div class="right-container">
+
+			<!-- Interlocutor infos -->
+			<header class="flex-align-center">
+				<div class="user flex-align-center">
+					<img :src="chats[chatIndex].user.avatar" :alt="chats[chatIndex].user.name" class="avatar">
+					<div>
+						<div class="username">{{ chats[chatIndex].user.name }}</div>
+						<div class="last-access">Ultimo accesso oggi alle {{ chats[chatIndex].lastAccess }}</div>
+					</div>
+				</div>
+
+				<!-- Utility buttons on the right -->
+				<div class="btns">
+					<button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+					<button class="btn"><i class="fa-solid fa-paperclip"></i></button>
+					<button class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+				</div>
+			</header>
+
+			<div class="chat-display">
+				<div v-for="(element,index) in chats[chatIndex].messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
+					<div class="text">{{ element.text }}</div>
+					<div class="date">{{ element.date }}</div>
+				</div>
+			</div>
+
+			<footer class="new-message flex-align-center">
+				<button class="btn"><i class="fa-regular fa-face-smile"></i></button>
+				<input type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
+				<button class="btn"><i class="fa-solid fa-microphone"></i></button>
+			</footer>
 		</div>
 	</div>
 	<!-- development version, includes helpful console warnings -->

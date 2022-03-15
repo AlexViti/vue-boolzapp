@@ -52,17 +52,13 @@ body {
 	padding: 2rem;
 }
 
-#root {
-	width: clamp(600px, 85%, 1300px);
-	background-color: white;
-	height: 100%;
-	margin: 0 auto;
-}
-
 .wrapper {
-	display: flex;
+	width: clamp(600px, 85%, 1300px);
 	height: 100%;
-	width: 100%;
+	display: flex;
+	margin: 0 auto;
+
+	background-color: white;
 }
 
 .flex-align-center {
@@ -178,7 +174,7 @@ textarea:focus, input[type=text]:focus {
 }
 
 .chat-display {
-	padding: 2rem;
+	padding: 2rem 4rem;
 
 	display: flex;
 	flex-direction: column;
@@ -198,11 +194,13 @@ textarea:focus, input[type=text]:focus {
 .received-message {
 	background-color: white;
 	align-self: flex-start;
+	margin-right: 1.5rem;
 }
 
 .my-message {
 	background-color: var(--bg-my-message);
 	align-self: flex-end;
+	margin-left: 1.5rem;
 }
 
 .text {

@@ -28,46 +28,57 @@
 						<div class="username">Alessio</div>
 					</div>
 					<div class="btns">
-						<button class="btn btn-status"></button>
-						<button class="btn btn-new-chat"></button>
-						<button class="btn btn-menu"></button>
+						<button class="btn btn-status"><i class="fa-solid fa-circle-notch"></i></button>
+						<button class="btn btn-new-chat"><i class="fa-solid fa-message"></i></button>
+						<button class="btn btn-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
 					</div>
 				</header>
 				<div class="notification">
-					<!-- TODO: -->
-				</div>
-				<div class="search-bar">
-					<button class="btn btn-search"></button>
-					<input type="text" class="search" placeholder="Cerca o inizia una nuova chat">
-				</div>
-				<div v-for="(element,index) in chats" class="chats">
-					<div class="chat">
-						<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
-						<div class="username">{{ element.user.name }}</div>
-						<div class="last-msg">Ultimo messaggio inviato</div>
-						<div class="date">12:00</div>
+					<div class="notification-bell"><i class="fa-solid fa-bell-slash"></i></div>
+					<div>
+						<div>Ricevi notifiche di nuovi messaggi</div>
+						<a href="#">Attiva notifiche desktop</a>
 					</div>
 				</div>
-			</div>
+				<div class="search-bar">
+					<button class="btn btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+					<input type="text" id="search-input" placeholder="Cerca o inizia una nuova chat">
+				</div>
+				<div class="chat-wrapper">
+					<div v-for="(element,index) in chats" class="chats">
+						<div class="chat" :class="{selected : index == chatIndex}">
+							<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
+							<div>
+								<div class="username">{{ element.user.name }}</div>
+								<div class="last-msg">Ultimo messaggio inviato</div>
+							</div>
+							<div class="date">12:00</div>
+						</div>
+					</div>
+				</div>
+				</div>
 			<div class="right-container">
 				<header>
 					<div class="user">
 						<img :src="chats[chatIndex].user.avatar" :alt="chats[chatIndex].user.name" class="avatar">
-						<div class="username">{{ chats[chatIndex].user.name }}</div>
+						<div>
+							<div class="username">{{ chats[chatIndex].user.name }}</div>
+							<div class="last-access">Ultimo accesso oggi alle {{ chats[chatIndex].lastAccess }}</div>
+						</div>
 					</div>
 					<div class="btns">
-						<button class="btn btn-search"></button>
-						<button class="btn btn-attachment"></button>
-						<button class="btn btn-menu"></button>
+						<button class="btn btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<button class="btn btn-attachment"><i class="fa-solid fa-paperclip"></i></button>
+						<button class="btn btn-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
 					</div>
 				</header>
 				<div class="chat-display">
 					<div class="message"></div>
 				</div>
 				<footer class="new-message">
-					<button class="btn btn-emoji"></button>
-					<input type="text" name="new-message" id="new-message" placeholder="Scrivi un messaggio">
-					<button class="btn btn-voice-record"></button>
+					<button class="btn btn-emoji"><i class="fa-regular fa-face-smile"></i></button>
+					<input type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
+					<button class="btn btn-voice-record"><i class="fa-solid fa-microphone"></i></button>
 				</footer>
 			</div>
 

@@ -12,35 +12,43 @@ const app = new Vue({
 		chats: [
 			{
 				user: new User('Michele', 1),
-				messages: []
+				messages: [],
+				lastAccess: '12:00'
 			},
 			{
 				user: new User('Fabio', 2),
-				messages: []
+				messages: [],
+				lastAccess: '12:00'
 			},
 			{
 				user: new User('Alessandro L.', 3),
-				messages: []
+				messages: [],
+				lastAccess: '12:00'
 			},
 			{
 				user: new User('Alessandro B.', 4),
-				messages: []
+				messages: [],
+				lastAccess: '12:00'
 			},
 			{
 				user: new User('Sofia', 5),
-				messages: []
+				messages: [],
+				lastAccess: '12:00'
 			},
 			{
 				user: new User('Claudia', 6),
-				messages: []
+				messages: [],
+				lastAccess: '12:00'
 			},
 			{
 				user: new User('Federico', 7),
-				messages: []
+				messages: [],
+				lastAccess: '12:00'
 			},
 			{
 				user: new User('Davide', 8),
-				messages: []
+				messages: [],
+				lastAccess: '12:00'
 			},
 		],
 		chatIndex: 0

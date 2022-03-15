@@ -12,12 +12,22 @@ html {
 	--bg-top: #00a884;
 	--bg-bottom: #eae6df;
 	--bg-bottom-deeper: #d1d7db;
+	--bg-chat-selected: #e9ebeb;
 	--bg-my-message: #d5f9ba;
 	--bg-header: #eaeaea;
 	--bg-footer: #f3eeea;
+	--notification-banner-color: #8edafc;
+	--gray-color: #b1b1b1;
 
 	--bg-top-height: 145px;
 	--avatar-size: 50px;
+}
+
+button {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	color: var(--gray-color);
 }
 
 body {
@@ -57,10 +67,6 @@ header {
 	background-color: var(--bg-header);
 }
 
-footer {
-	background-color: var(--bg-footer);
-}
-
 .user {
 	display: flex;
 }
@@ -69,13 +75,50 @@ footer {
 	margin-left: auto;
 }
 
+.notification-bell,
 .avatar {
 	border-radius: 50px;
 	width: 50px;
 }
 
+.notification {
+	background-color: var(--notification-banner-color);
+	display: flex;
+}
+
+.notification-bell {
+	font-size: 25px;
+	line-height: 50px;
+	text-align: center;
+	color: var(--notification-banner-color);
+
+	background-color: white;
+}
+
+.search-bar {
+	display: flex;
+}
+
+input[type=text] {
+	flex-grow: 1;
+}
+
+.chat-display,
+.chat-wrapper {
+	flex-grow: 1;
+	overflow-y: scroll;
+}
+
 .chat {
 	display: flex;
+}
+
+.chat.selected {
+ background-color: var(--bg-chat-selected);
+}
+
+.date {
+	margin-left: auto;
 }
 
 .message {
@@ -83,7 +126,6 @@ footer {
 }
 
 .chat-display {
-	flex-grow: 1;
 	background: url('../img/mine.jpg');
 }
 
@@ -93,4 +135,9 @@ footer {
 
 .my-message {
 	background-color: var(--bg-my-message);
+}
+
+.new-message {
+	background-color: var(--bg-footer);
+	display: flex;
 }

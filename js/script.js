@@ -17,6 +17,7 @@ const app = new Vue({
 	el: '#root',
 	data: {
 		myUser: new User('Alessio', 'io'),
+		searchChat:'',
 		chats: [
 			{
 				user: new User('Michele', 1),

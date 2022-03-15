@@ -60,7 +60,10 @@
 
 			<!-- Chats container -->
 			<div class="chats-wrapper">
-				<div v-for="(element,index) in chats.filter(element => element.user.name.startsWith(searchChat))" @click="chatIndex = index" class="chat flex-align-center" :class="{selected : index == chatIndex}">
+				<div v-for="(element,index) in displayedChats()"
+					@click="chatIndex = index" 
+					class="chat flex-align-center" :class="{selected : index == chatIndex}">
+					
 					<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
 					<div>
 						<div class="username">{{ element.user.name }}</div>

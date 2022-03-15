@@ -67,6 +67,8 @@ const app = new Vue({
 		chatIndex: 0
 	},
 	methods: {
-
+		displayedChats() {
+			return this.chats.filter(chat => (chat.user.name.toLowerCase().startsWith(this.searchChat.trim().toLowerCase())));
+		}
 	}
 });

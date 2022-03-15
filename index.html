@@ -69,7 +69,7 @@
 						<div class="username">{{ element.user.name }}</div>
 						<div class="last-msg">{{ element.messages[element.messages.length - 1].text }}</div>
 					</div>
-					<div class="date">{{ element.messages[element.messages.length - 1].date }}</div>
+					<div class="date">{{ element.messages[element.messages.length - 1].date.toLocaleTimeString().slice(0, -3) }}</div>
 				</div>
 			</div>
 		</div>
@@ -83,7 +83,7 @@
 					<img :src="chats[chatIndex].user.avatar" :alt="chats[chatIndex].user.name" class="avatar">
 					<div>
 						<div class="username">{{ chats[chatIndex].user.name }}</div>
-						<div class="last-access">Ultimo accesso oggi alle {{ chats[chatIndex].lastAccess }}</div>
+						<div class="last-access">Ultimo accesso oggi alle {{ chats[chatIndex].lastAccess.toLocaleTimeString().slice(0, -3) }}</div>
 					</div>
 				</div>
 
@@ -98,7 +98,7 @@
 			<div class="chat-display">
 				<div v-for="(element,index) in chats[chatIndex].messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
 					<div class="text">{{ element.text }}</div>
-					<div class="date">{{ element.date }}</div>
+					<div class="date">{{ element.date.toLocaleTimeString().slice(0, -3) }}</div>
 				</div>
 			</div>
 

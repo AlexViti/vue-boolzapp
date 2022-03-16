@@ -1,3 +1,11 @@
+const DateTime = luxon.DateTime;
+const launchDate = DateTime.now();
+const todayStr = launchDate.toISODate()
+console.log(launchDate.toISO())
+
+/*
+CLASSES DEFINITION
+*/
 class User {
 	constructor (name, avatarNumb) {
 		this.name = name;
@@ -12,6 +20,9 @@ class Message {
 	}
 }
 
+/*
+VUE APP
+*/
 const app = new Vue({
 	el: '#root',
 	data: {
@@ -19,83 +30,83 @@ const app = new Vue({
 		searchChat:'',
 		chats: [
 			{
+				id: 1,
 				user: new User('Michele', 1),
 				messages: [
 					new Message('Hai portato a spasso il cane?',
-						true, '12:00'
+						true, DateTime.fromISO(`${todayStr}T10:30`)
 					),
 					new Message('Ricordati di stendere i panni',
-						true, '12:00'
+						true, DateTime.fromISO(`${todayStr}T16:50`)
 					),
 					new Message('Tutto fatto!', 
-						false, '12:00'
+						false, DateTime.fromISO(`${todayStr}T17:21`)
 					),
 				],
-				lastAccess: '12:00',
-				id: 1
+				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
 			},
 			{
+				id: 2,
 				user: new User('Fabio', 2),
-				messages: [new Message('Ultimo messaggio', false, '12:00')],
-				lastAccess: '12:00',
-				id: 2
+				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
+				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
 			},
 			{
+				id: 3,
 				user: new User('Alessandro L.', 3),
-				messages: [new Message('Ultimo messaggio', false, '12:00')],
-				lastAccess: '12:00',
-				id: 3
+				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
+				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
 			},
 			{
+				id: 4,
 				user: new User('Alessandro B.', 4),
-				messages: [new Message('Ultimo messaggio', false, '12:00')],
-				lastAccess: '12:00',
-				id: 4
+				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
+				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
 			},
 			{
+				id: 5,
 				user: new User('Sofia', 5),
-				messages: [new Message('Ultimo messaggio', false, '12:00')],
-				lastAccess: '12:00',
-				id: 5
+				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
+				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
 			},
 			{
+				id: 6,
 				user: new User('Claudia', 6),
-				messages: [new Message('Ultimo messaggio', false, '12:00')],
-				lastAccess: '12:00',
-				id: 6
+				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
+				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
 			},
 			{
+				id: 7,
 				user: new User('Federico', 7),
-				messages: [new Message('Ultimo messaggio', false, '12:00')],
-				lastAccess: '12:00',
-				id: 7
+				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
+				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
 			},
 			{
+				id: 8,
 				user: new User('Davide', 8),
-				messages: [new Message('Ultimo messaggio', false, '12:00')],
-				lastAccess: '12:00',
-				id:  8
+				messages: [new Message('Ultimo messaggio', false, DateTime.now())],
+				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
 			},
 		],
 		currentId: 1,
 		newMessageText: ''
 	},
 	methods: {
-		displayedChats() {
+		displayedChats() { //FILTER CHATS BY SEARCH INPUT
 			return this.chats.filter(chat => (chat.user.name.toLowerCase().startsWith(this.searchChat.trim().toLowerCase())));
 		},
 		newMessage() {
 			const chat = this.idFinder(this.currentId);
 			if(this.newMessageText != '') {
-				const newMessage = new Message(this.newMessageText.trim(), true, '12:00')
+				const newMessage = new Message(this.newMessageText.trim(), true, DateTime.now())
 				chat.messages.push(newMessage);
 			}
 			this.newMessageText = '';
 
-			setTimeout(() => this.reply(chat.id), 2000);
+			setTimeout(() => this.reply(chat.id), 1000);
 		},
 		reply(interlocutorId) {
-			const newMessage = new Message('ok', false, '12:00')
+			const newMessage = new Message('ok', false, DateTime.now())
 			this.idFinder(interlocutorId).messages.push(newMessage);
 		},
 		idFinder(id) {

@@ -74,7 +74,7 @@
 						<div class="username">{{ element.user.name }}</div>
 						<div class="last-msg">{{ element.messages[element.messages.length - 1].text }}</div>
 					</div>
-					<div class="date">{{ element.messages[element.messages.length - 1].date }}</div>
+					<div class="date">{{ element.messages[element.messages.length - 1].date.setLocale('it').toRelative({unit: 'hours'}) }}</div>
 				</div>
 			</div>
 		</div>
@@ -88,7 +88,7 @@
 					<img :src="idFinder(currentId).user.avatar" :alt="idFinder(currentId).user.name" class="avatar">
 					<div>
 						<div class="username">{{ idFinder(currentId).user.name }}</div>
-						<div class="last-access">Ultimo accesso oggi alle {{ idFinder(currentId).lastAccess }}</div>
+						<div class="last-access">Ultimo accesso oggi alle {{ idFinder(currentId).lastAccess.setLocale('it').toRelative({unit: 'hours'}) }}</div>
 					</div>
 				</div>
 
@@ -103,7 +103,7 @@
 			<div class="chat-display">
 				<div v-for="element in idFinder(currentId).messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
 					<div class="text">{{ element.text }}</div>
-					<div class="date">{{ element.date }}</div>
+					<div class="date">{{ element.date.setLocale('it').toRelative({unit: 'hours'}) }}</div>
 				</div>
 			</div>
 
@@ -115,9 +115,13 @@
 			</footer>
 		</div>
 	</div>
-	<!-- development version, includes helpful console warnings -->
+
+	<!-- SCRIPTS -->
+	<!-- Luxon date library -->
+	<script src="https://cdn.jsdelivr.net/npm/luxon@2.3.1/build/global/luxon.min.js"></script>
+	<!-- VUE CDN: development version, includes helpful console warnings -->
 	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-	<!-- Script -->
+	<!-- My script -->
 	<script src="js/script.js"></script>
 </body>
 </html>

@@ -85,12 +85,14 @@ const app = new Vue({
 			return this.chats.filter(chat => (chat.user.name.toLowerCase().startsWith(this.searchChat.trim().toLowerCase())));
 		},
 		newMessage() {
+			const chat = this.idFinder(this.currentId);
 			if(this.newMessageText != '') {
 				const newMessage = new Message(this.newMessageText.trim(), true, '12:00')
-				this.idFinder(this.currentId).messages.push(newMessage);
+				chat.messages.push(newMessage);
 			}
 			this.newMessageText = '';
-			setTimeout(() => this.reply(this.currentId), 1000);
+
+			setTimeout(() => this.reply(chat.id), 2000);
 		},
 		reply(interlocutorId) {
 			const newMessage = new Message('ok', false, '12:00')

@@ -48,8 +48,12 @@ body {
 	padding: 2rem;
 }
 
+#root {
+	height: 100%;
+}
+
 .wrapper {
-	width: clamp(600px, 85%, 1300px);
+	width: clamp(650px, 85%, 1300px);
 	height: 100%;
 	display: flex;
 	margin: 0 auto;
@@ -70,12 +74,12 @@ body {
 }
 
 .left-container {
-	flex-grow: 1;
+	flex-shrink: 0;
 	border-right: 1px solid var(--container-border);
 }
 
 .right-container {
-	flex-grow: 10;
+	flex-grow: 1;
 }
 
 header {
@@ -199,6 +203,16 @@ input[type=text] {
 
 .text {
 	padding: .6em;
+}
+
+.menu-on-click {
+	position: absolute;
+	background-color: white;
+	border-radius: 5px;
+}
+
+.menu-on-click div {
+	padding: 1rem;
 }
 
 .message .date {

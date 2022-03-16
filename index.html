@@ -25,7 +25,8 @@
 <body>
 
 	<!-- Vue app container -->
-	<div id="root" class="wrapper">
+	<div id="root">
+		<div @click="closeMenu" class="wrapper">
 
 		<!-- Container with a header, a banner and a chats list with a search-bar -->
 		<div class="left-container">
@@ -102,9 +103,12 @@
 			</header>
 
 			<div class="chat-display" ref="container">
-				<div v-for="element in idFinder(currentId).messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
-					<div class="text">{{ element.text }}</div>
-					<div class="date">{{ toRelative(element.date) }}</div>
+				<div v-for="(message, i) in idFinder(currentId).messages" 
+						@click.stop="menuToggle(i, $event)"
+						class="message" :class="message.sent ? 'my-message' : 'received-message'"
+				>
+					<div class="text">{{ message.text }}</div>
+					<div class="date">{{ toRelative(message.date) }}</div>
 				</div>
 			</div>
 			<footer>
@@ -117,8 +121,14 @@
 				</div>
 			</footer>
 		</div>
+		<div v-if="isMenuOpen" class="menu-on-click"
+			:style="{top: menuY + 'px',
+					  left: menuX + 'px'
+		}">
+			<div @click.stop="deleteMessage">Cancella</div>
+		</div>
 	</div>
-
+	</div>
 	<!-- SCRIPTS -->
 	<!-- Luxon date library -->
 	<script src="https://cdn.jsdelivr.net/npm/luxon@2.3.1/build/global/luxon.min.js"></script>

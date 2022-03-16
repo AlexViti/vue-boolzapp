@@ -100,7 +100,11 @@ const app = new Vue({
 		currentId: 1,
 		newMessageText: '',
 		ids: [],
-		slicer: 40,
+		slicer: 35,
+		isMenuOpen: false,
+		menuX: 0,
+		menuY: 0,
+		messageMenuIndex: '',
 	},
 	methods: {
 		displayedChats() { //FILTER CHATS BY SEARCH INPUT
@@ -144,6 +148,25 @@ const app = new Vue({
 		scrollToEnd () {
 			const content = this.$refs.container;
 			content.scrollTop = content.scrollHeight;
+		},
+		menuToggle(messageIndex, event) {
+			this.isMenuOpen = !this.isMenuOpen;
+			this.messageMenuIndex = messageIndex;
+			this.menuX = event.pageX;
+			this.menuY = event.pageY;
+		},
+		closeMenu() {
+			this.isMenuOpen = false;
+		},
+		deleteMessage() {
+			const chats = this.chats;
+			const chat = this.idFinder(this.currentId);
+			chat.messages.splice(this.messageMenuIndex, 1 );
+			this.isMenuOpen = false;
+			if (chat.messages.length < 1) {
+				chats.splice(chats.indexOf(chat), 1)
+				this.currentId = chats[0].id;
+			}
 		}
 	},
 	created: function() {

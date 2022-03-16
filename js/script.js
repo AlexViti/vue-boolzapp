@@ -42,7 +42,8 @@ const app = new Vue({
 					),
 				],
 				lastAccess: launchDate.minus({minutes: 24}),
-				isTyping: false
+				isTyping: false,
+				newMessageText: '',
 			},
 			{
 				id: 2,
@@ -52,7 +53,8 @@ const app = new Vue({
 					new Message('Anche a te e famiglia', true, DateTime.fromISO('2020-12-25T18:12')),
 				],
 				lastAccess: launchDate.minus({days: 1, hours: 1, minutes: 30}),
-				isTyping: false
+				isTyping: false,
+				newMessageText: '',
 			},
 			{
 				id: 3,
@@ -63,14 +65,38 @@ const app = new Vue({
 					new Message('Ti va di venire domani sera a vedere Batman? Andiamo alle 9 al Sarca', false, launchDate.minus({days: 1,hours: 0, minutes: 6}))
 				],
 				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-				isTyping: false
+				isTyping: false,
+				newMessageText: '',
 			},
-			// {
-			// 	id: 4,
-			// 	user: new User('Alessandro B.', 4),
-			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
-			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			// },
+			{
+				id: 4,
+				user: new User('Alessandro B.', 4),
+				messages: [
+					new Message(`Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea a, iste, deserunt laboriosam delectus quis repellendus sed quasi placeat, dolorem ad. Illum quia tempore sapiente odio excepturi quaerat magnam consequatur.
+					Eligendi sunt nesciunt tenetur recusandae voluptatum nihil porro repudiandae fugiat labore a, officiis voluptate quasi, ratione nam ipsum molestiae delectus. Id assumenda modi nemo ducimus ut voluptates, dolore laboriosam voluptatum.
+					Reprehenderit ipsa modi esse, voluptates laborum vero neque temporibus dolores ea dolor voluptatum officia eius incidunt debitis qui facere vitae fuga voluptatibus corrupti rerum quo voluptatem maxime, ipsam ratione! Rem.
+					A sint beatae labore similique minima reiciendis necessitatibus culpa facilis? Delectus mollitia dicta saepe a vel molestiae aperiam laborum sint quaerat, illo illum! Amet debitis pariatur obcaecati nostrum odit repellat.
+					Error aliquam expedita, porro est, optio delectus voluptas a enim similique temporibus, cumque voluptate accusantium saepe iusto accusamus quibusdam consectetur asperiores ipsa qui inventore necessitatibus assumenda. Deleniti excepturi consectetur fugit!
+					Tenetur, vitae ratione. Cupiditate, perferendis suscipit odio facilis et accusantium alias accusamus tempore dolor obcaecati, quasi possimus sunt exercitationem repellat eligendi dolorem ut in corporis, doloremque rem vel repudiandae. Nobis!`, false, launchDate.minus({days: 10, hours: 1, minutes: 02})),
+					new Message(`Dolorum repudiandae labore laudantium facere quod, molestiae inventore nesciunt, repellat maiores, nobis quasi eum quo excepturi reprehenderit modi tempora. Modi illum velit corrupti est voluptatum dolorum. Excepturi eum ipsam hic.
+					Obcaecati omnis magnam, molestiae in quasi laudantium maxime pariatur laborum, saepe esse repudiandae iste quibusdam nulla aperiam veritatis ad? Dolorum, expedita accusantium eveniet saepe eius dolores vero iure. Harum, distinctio.
+					Dicta cum aliquam, maxime sequi eos totam iste id est neque fuga esse, earum non sapiente? Voluptatem iste adipisci possimus voluptate laborum neque, dolorum cumque amet, ea et iusto mollitia.
+					Fugit mollitia veniam quo recusandae ducimus, minima facilis, consequuntur facere a error distinctio aut quibusdam maiores odit nobis sunt! Doloremque eligendi vitae ex molestiae dignissimos molestias fugiat alias non quasi.`, true, launchDate.minus({days: 6, hours: 5})),
+					new Message(`Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea a, iste, deserunt laboriosam delectus quis repellendus sed quasi placeat, dolorem ad. Illum quia tempore sapiente odio excepturi quaerat magnam consequatur.
+					Eligendi sunt nesciunt tenetur recusandae voluptatum nihil porro repudiandae fugiat labore a, officiis voluptate quasi, ratione nam ipsum molestiae delectus. Id assumenda modi nemo ducimus ut voluptates, dolore laboriosam voluptatum.
+					Reprehenderit ipsa modi esse, voluptates laborum vero neque temporibus dolores ea dolor voluptatum officia eius incidunt debitis qui facere vitae fuga voluptatibus corrupti rerum quo voluptatem maxime, ipsam ratione! Rem.
+					A sint beatae labore similique minima reiciendis necessitatibus culpa facilis? Delectus mollitia dicta saepe a vel molestiae aperiam laborum sint quaerat, illo illum! Amet debitis pariatur obcaecati nostrum odit repellat.
+					Error aliquam expedita, porro est, optio delectus voluptas a enim similique temporibus, cumque voluptate accusantium saepe iusto accusamus quibusdam consectetur asperiores ipsa qui inventore necessitatibus assumenda. Deleniti excepturi consectetur fugit!
+					Tenetur, vitae ratione. Cupiditate, perferendis suscipit odio facilis et accusantium alias accusamus tempore dolor obcaecati, quasi possimus sunt exercitationem repellat eligendi dolorem ut in corporis, doloremque rem vel repudiandae. Nobis!`, false, launchDate.minus({days: 3, hours: 0, minutes: 30})),
+					new Message(`Dolorum repudiandae labore laudantium facere quod, molestiae inventore nesciunt, repellat maiores, nobis quasi eum quo excepturi reprehenderit modi tempora. Modi illum velit corrupti est voluptatum dolorum. Excepturi eum ipsam hic.
+					Obcaecati omnis magnam, molestiae in quasi laudantium maxime pariatur laborum, saepe esse repudiandae iste quibusdam nulla aperiam veritatis ad? Dolorum, expedita accusantium eveniet saepe eius dolores vero iure. Harum, distinctio.
+					Dicta cum aliquam, maxime sequi eos totam iste id est neque fuga esse, earum non sapiente? Voluptatem iste adipisci possimus voluptate laborum neque, dolorum cumque amet, ea et iusto mollitia.
+					Fugit mollitia veniam quo recusandae ducimus, minima facilis, consequuntur facere a error distinctio aut quibusdam maiores odit nobis sunt! Doloremque eligendi vitae ex molestiae dignissimos molestias fugiat alias non quasi.`, true, launchDate.minus({hours: 5})),
+				],		
+				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+				isTyping: false,
+				newMessageText: '',
+			},
 			// {
 			// 	id: 5,
 			// 	user: new User('Sofia', 5),
@@ -98,7 +124,6 @@ const app = new Vue({
 		],
 		sortedChats: [],
 		currentId: 1,
-		newMessageText: '',
 		ids: [],
 		slicer: 35,
 		isMenuOpen: false,
@@ -112,11 +137,11 @@ const app = new Vue({
 		},
 		newMessage() {
 			const chat = this.idFinder(this.currentId);
-			if(this.newMessageText != '') {
-				const newMessage = new Message(this.newMessageText.trim(), true, DateTime.now())
+			if(chat.newMessageText != '') {
+				const newMessage = new Message(chat.newMessageText.trim(), true, DateTime.now())
 				chat.messages.push(newMessage);
 			}
-			this.newMessageText = '';
+			chat.newMessageText = '';
 
 			this.sortChats();
 			chat.isTyping = true,

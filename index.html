@@ -115,8 +115,8 @@
 				<div v-if="idFinder(currentId).isTyping" class="is-typing">{{ idFinder(currentId).user.name }} sta scrivendo</div>
 				<div class="new-message flex-align-center">
 					<button class="btn"><i class="fa-regular fa-face-smile"></i></button>
-					<input @keyup.enter="newMessage" v-model="newMessageText" type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
-					<button v-if="newMessageText.trim() == ''" class="btn fix-width"><i class="fa-solid fa-microphone"></i></button>
+					<input @keyup.enter="newMessage" v-model="idFinder(currentId).newMessageText" type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
+					<button v-if="idFinder(currentId).newMessageText.trim() == ''" class="btn fix-width"><i class="fa-solid fa-microphone"></i></button>
 					<button @click="newMessage" v-else class="btn fix-width"><img src="img/paper-plane-top.png" alt=""></button>
 				</div>
 			</footer>

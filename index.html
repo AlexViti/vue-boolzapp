@@ -65,9 +65,9 @@
 
 			<!-- Chats container -->
 			<div class="chats-wrapper">
-				<div v-for="(element,index) in displayedChats()"
-					@click="chatIndex = index" 
-					class="chat flex-align-center" :class="{selected : index == chatIndex}">
+				<div v-for="element in displayedChats()"
+					@click="currentId = element.id" 
+					class="chat flex-align-center" :class="{selected : element.id == currentId}">
 					
 					<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
 					<div>
@@ -85,10 +85,10 @@
 			<!-- Interlocutor infos -->
 			<header class="flex-align-center">
 				<div class="user flex-align-center">
-					<img :src="chats[chatIndex].user.avatar" :alt="chats[chatIndex].user.name" class="avatar">
+					<img :src="idFinder(currentId).user.avatar" :alt="idFinder(currentId).user.name" class="avatar">
 					<div>
-						<div class="username">{{ chats[chatIndex].user.name }}</div>
-						<div class="last-access">Ultimo accesso oggi alle {{ chats[chatIndex].lastAccess }}</div>
+						<div class="username">{{ idFinder(currentId).user.name }}</div>
+						<div class="last-access">Ultimo accesso oggi alle {{ idFinder(currentId).lastAccess }}</div>
 					</div>
 				</div>
 
@@ -101,7 +101,7 @@
 			</header>
 
 			<div class="chat-display">
-				<div v-for="(element,index) in chats[chatIndex].messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
+				<div v-for="element in idFinder(currentId).messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
 					<div class="text">{{ element.text }}</div>
 					<div class="date">{{ element.date }}</div>
 				</div>

@@ -77,7 +77,7 @@ const app = new Vue({
 				id:  8
 			},
 		],
-		chatIndex: 0,
+		currentId: 1,
 		newMessageText: ''
 	},
 	methods: {
@@ -87,9 +87,23 @@ const app = new Vue({
 		newMessage() {
 			if(this.newMessageText != '') {
 				const newMessage = new Message(this.newMessageText.trim(), true, '12:00')
-				this.chats[this.chatIndex].messages.push(newMessage);
+				this.idFinder(this.currentId).messages.push(newMessage);
 			}
 			this.newMessageText = '';
+			setTimeout(() => this.reply(this.currentId), 1000);
+		},
+		reply(interlocutorId) {
+			const newMessage = new Message('ok', false, '12:00')
+			this.idFinder(interlocutorId).messages.push(newMessage);
+		},
+		idFinder(id) {
+			let result;
+			this.chats.forEach(chat => {
+				if (chat.id == id) {
+					result = chat;
+				}
+			});
+			return result;
 		}
 	}
 });

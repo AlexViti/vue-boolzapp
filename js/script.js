@@ -115,7 +115,8 @@ const app = new Vue({
 				}
 			});
 			return result;
-		}
+		},
+		toRelative: (date) => date.diffNow().as('minutes') > -1 ? 'adesso' : date.toRelative({locale: 'it'}),
 	}
 });
 

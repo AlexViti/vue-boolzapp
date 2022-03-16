@@ -74,7 +74,7 @@
 						<div class="username">{{ element.user.name }}</div>
 						<div class="last-msg">{{ element.messages[element.messages.length - 1].text }}</div>
 					</div>
-					<div class="date">{{ element.messages[element.messages.length - 1].date.toRelative({locale:'it'}) }}</div>
+					<div class="date">{{ toRelative(element.messages[element.messages.length - 1].date) }}</div>
 				</div>
 			</div>
 		</div>
@@ -88,7 +88,7 @@
 					<img :src="idFinder(currentId).user.avatar" :alt="idFinder(currentId).user.name" class="avatar">
 					<div>
 						<div class="username">{{ idFinder(currentId).user.name }}</div>
-						<div class="last-access">Ultimo accesso {{ idFinder(currentId).lastAccess.toRelative({locale:'it'}) }}</div>
+						<div class="last-access">Ultimo accesso {{ toRelative(idFinder(currentId).lastAccess) }}</div>
 					</div>
 				</div>
 
@@ -103,7 +103,7 @@
 			<div class="chat-display">
 				<div v-for="element in idFinder(currentId).messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
 					<div class="text">{{ element.text }}</div>
-					<div class="date">{{ element.date.toRelative({locale:'it'}) }}</div>
+					<div class="date">{{ toRelative(element.date) }}</div>
 				</div>
 			</div>
 

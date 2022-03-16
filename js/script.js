@@ -1,7 +1,5 @@
 const DateTime = luxon.DateTime;
 const launchDate = DateTime.now();
-const todayStr = launchDate.toISODate()
-console.log(launchDate.toISO())
 
 /*
 CLASSES DEFINITION
@@ -34,58 +32,58 @@ const app = new Vue({
 				user: new User('Michele', 1),
 				messages: [
 					new Message('Hai portato a spasso il cane?',
-						true, DateTime.fromISO(`${todayStr}T10:30`)
+						true, launchDate.minus({hours: 1, minutes: 30})
 					),
 					new Message('Ricordati di stendere i panni',
-						true, DateTime.fromISO(`${todayStr}T16:50`)
+						true, launchDate.minus({minutes: 50})
 					),
 					new Message('Tutto fatto!', 
-						false, DateTime.fromISO(`${todayStr}T17:21`)
+						false, launchDate.minus({minutes: 30})
 					),
 				],
-				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
+				lastAccess: launchDate.minus({minutes: 24}),
 			},
 			{
 				id: 2,
 				user: new User('Fabio', 2),
-				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
-				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
+				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+				lastAccess: launchDate.minus({days: 1, hours: 1, minutes: 30}),
 			},
 			{
 				id: 3,
 				user: new User('Alessandro L.', 3),
-				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
-				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
+				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
 			},
 			{
 				id: 4,
 				user: new User('Alessandro B.', 4),
-				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
-				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
+				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
 			},
 			{
 				id: 5,
 				user: new User('Sofia', 5),
-				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
-				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
+				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
 			},
 			{
 				id: 6,
 				user: new User('Claudia', 6),
-				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
-				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
+				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
 			},
 			{
 				id: 7,
 				user: new User('Federico', 7),
-				messages: [new Message('Ultimo messaggio', false, DateTime.fromISO(`${todayStr}T16:30`))],
-				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
+				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
 			},
 			{
 				id: 8,
 				user: new User('Davide', 8),
-				messages: [new Message('Ultimo messaggio', false, DateTime.now())],
-				lastAccess: DateTime.fromISO(`${todayStr}T16:30`),
+				messages: [new Message('Ultimo messaggio', false, launchDate.minus({years: 1, hours: 1, minutes: 30}))],
+				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
 			},
 		],
 		currentId: 1,

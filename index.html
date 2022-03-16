@@ -59,7 +59,7 @@
 
 			<!-- Search-bar for chats with a text input and a button -->
 			<div class="search-bar flex-align-center">
-				<button class="btn-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+				<label for="search-input" class="search-label"><i class="fa-solid fa-magnifying-glass"></i></label>
 				<input v-model="searchChat" type="text" id="search-input" placeholder="Cerca o inizia una nuova chat">
 			</div>
 
@@ -74,7 +74,7 @@
 						<div class="username">{{ element.user.name }}</div>
 						<div class="last-msg">{{ element.messages[element.messages.length - 1].text }}</div>
 					</div>
-					<div class="date">{{ element.messages[element.messages.length - 1].date.setLocale('it').toRelative({unit: 'hours'}) }}</div>
+					<div class="date">{{ element.messages[element.messages.length - 1].date.toRelative({locale:'it'}) }}</div>
 				</div>
 			</div>
 		</div>
@@ -88,7 +88,7 @@
 					<img :src="idFinder(currentId).user.avatar" :alt="idFinder(currentId).user.name" class="avatar">
 					<div>
 						<div class="username">{{ idFinder(currentId).user.name }}</div>
-						<div class="last-access">Ultimo accesso oggi alle {{ idFinder(currentId).lastAccess.setLocale('it').toRelative({unit: 'hours'}) }}</div>
+						<div class="last-access">Ultimo accesso {{ idFinder(currentId).lastAccess.toRelative({locale:'it'}) }}</div>
 					</div>
 				</div>
 
@@ -103,7 +103,7 @@
 			<div class="chat-display">
 				<div v-for="element in idFinder(currentId).messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
 					<div class="text">{{ element.text }}</div>
-					<div class="date">{{ element.date.setLocale('it').toRelative({unit: 'hours'}) }}</div>
+					<div class="date">{{ element.date.toRelative({locale:'it'}) }}</div>
 				</div>
 			</div>
 
@@ -111,7 +111,7 @@
 				<button class="btn"><i class="fa-regular fa-face-smile"></i></button>
 				<input @keyup.enter="newMessage" v-model="newMessageText" type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
 				<button v-if="newMessageText.trim() == ''" class="btn fix-width"><i class="fa-solid fa-microphone"></i></button>
-				<button @click="newMessage" v-if="newMessageText.trim() != ''" class="btn fix-width"><img src="img/paper-plane-top.png" alt=""></button>
+				<button @click="newMessage" v-else class="btn fix-width"><img src="img/paper-plane-top.png" alt=""></button>
 			</footer>
 		</div>
 	</div>

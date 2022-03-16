@@ -101,18 +101,20 @@
 				</div>
 			</header>
 
-			<div class="chat-display">
+			<div class="chat-display" ref="container">
 				<div v-for="element in idFinder(currentId).messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
 					<div class="text">{{ element.text }}</div>
 					<div class="date">{{ toRelative(element.date) }}</div>
 				</div>
 			</div>
-
-			<footer class="new-message flex-align-center">
-				<button class="btn"><i class="fa-regular fa-face-smile"></i></button>
-				<input @keyup.enter="newMessage" v-model="newMessageText" type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
-				<button v-if="newMessageText.trim() == ''" class="btn fix-width"><i class="fa-solid fa-microphone"></i></button>
-				<button @click="newMessage" v-else class="btn fix-width"><img src="img/paper-plane-top.png" alt=""></button>
+			<footer>
+				<div v-if="idFinder(currentId).isTyping" class="is-typing">{{ idFinder(currentId).user.name }} sta scrivendo</div>
+				<div class="new-message flex-align-center">
+					<button class="btn"><i class="fa-regular fa-face-smile"></i></button>
+					<input @keyup.enter="newMessage" v-model="newMessageText" type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
+					<button v-if="newMessageText.trim() == ''" class="btn fix-width"><i class="fa-solid fa-microphone"></i></button>
+					<button @click="newMessage" v-else class="btn fix-width"><img src="img/paper-plane-top.png" alt=""></button>
+				</div>
 			</footer>
 		</div>
 	</div>

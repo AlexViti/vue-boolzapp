@@ -46,52 +46,62 @@ const app = new Vue({
 			{
 				id: 2,
 				user: new User('Fabio', 2),
-				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+				messages: [
+					new Message('Buon natale', false, DateTime.fromISO('2020-12-25T16:12')),
+					new Message('Anche a te e famiglia', true, DateTime.fromISO('2020-12-25T18:12')),
+				],
 				lastAccess: launchDate.minus({days: 1, hours: 1, minutes: 30}),
 			},
 			{
 				id: 3,
 				user: new User('Alessandro L.', 3),
-				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+				messages: [
+					new Message('Ehilà, come va?', false, launchDate.minus({days: 1, hours: 1, minutes: 02})),
+					new Message('Tutto bene grazie, tu?', true, launchDate.minus({days: 1,hours: 0, minutes: 58})),
+					new Message('Ti va di venire domani sera a vedere Batman? Andiamo alle 9 al Sarca', false, launchDate.minus({days: 1,hours: 0, minutes: 6}))
+				],
 				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
 			},
-			{
-				id: 4,
-				user: new User('Alessandro B.', 4),
-				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
-				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			},
-			{
-				id: 5,
-				user: new User('Sofia', 5),
-				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
-				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			},
-			{
-				id: 6,
-				user: new User('Claudia', 6),
-				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
-				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			},
-			{
-				id: 7,
-				user: new User('Federico', 7),
-				messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
-				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			},
-			{
-				id: 8,
-				user: new User('Davide', 8),
-				messages: [new Message('Ultimo messaggio', false, launchDate.minus({years: 1, hours: 1, minutes: 30}))],
-				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			},
+			// {
+			// 	id: 4,
+			// 	user: new User('Alessandro B.', 4),
+			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+			// },
+			// {
+			// 	id: 5,
+			// 	user: new User('Sofia', 5),
+			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+			// },
+			// {
+			// 	id: 6,
+			// 	user: new User('Claudia', 6),
+			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+			// },
+			// {
+			// 	id: 7,
+			// 	user: new User('Federico', 7),
+			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+			// },
+			// {
+			// 	id: 8,
+			// 	user: new User('Davide', 8),
+			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({years: 1, hours: 1, minutes: 30}))],
+			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+			// },
 		],
+		sortedChats: [],
 		currentId: 1,
-		newMessageText: ''
+		newMessageText: '',
+		ids: [],
+		slicer: 40,
 	},
 	methods: {
 		displayedChats() { //FILTER CHATS BY SEARCH INPUT
-			return this.chats.filter(chat => (chat.user.name.toLowerCase().startsWith(this.searchChat.trim().toLowerCase())));
+			return this.sortedChats.filter(chat => (chat.user.name.toLowerCase().startsWith(this.searchChat.trim().toLowerCase())));
 		},
 		newMessage() {
 			const chat = this.idFinder(this.currentId);
@@ -101,11 +111,14 @@ const app = new Vue({
 			}
 			this.newMessageText = '';
 
+			this.sortChats();
+
 			setTimeout(() => this.reply(chat.id), 1000);
 		},
 		reply(interlocutorId) {
 			const newMessage = new Message('ok', false, DateTime.now())
 			this.idFinder(interlocutorId).messages.push(newMessage);
+			this.sortChats();
 		},
 		idFinder(id) {
 			let result;
@@ -117,6 +130,14 @@ const app = new Vue({
 			return result;
 		},
 		toRelative: (date) => date.diffNow().as('minutes') > -1 ? 'adesso' : date.toRelative({locale: 'it'}),
+		sortChats() {
+			this.sortedChats = this.chats.sort((chatA, chatB) => chatB.messages[chatB.messages.length - 1].date - chatA.messages[chatA.messages.length - 1].date)
+		},
+		getLastMessage: (chat) => chat.messages[chat.messages.length - 1],
+	},
+	created: function() {
+		this.ids = this.chats.map(chat => chat.id)
+		this.sortChats();
 	}
 });
 

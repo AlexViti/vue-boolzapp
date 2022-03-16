@@ -65,16 +65,17 @@
 
 			<!-- Chats container -->
 			<div class="chats-wrapper">
-				<div v-for="element in displayedChats()"
-					@click="currentId = element.id" 
-					class="chat flex-align-center" :class="{selected : element.id == currentId}">
+				<div v-for="chat in displayedChats()"
+					@click="currentId = chat.id" 
+					class="chat flex-align-center" :class="{selected : chat.id == currentId}">
 					
-					<img :src="element.user.avatar" :alt="element.user.name" class="avatar">
+					<img :src="chat.user.avatar" :alt="chat.user.name" class="avatar">
 					<div>
-						<div class="username">{{ element.user.name }}</div>
-						<div class="last-msg">{{ element.messages[element.messages.length - 1].text }}</div>
+						<div class="username">{{ chat.user.name }}</div>
+						<div v-if="getLastMessage(chat).text.length < slicer" class="last-msg">{{ getLastMessage(chat).text }}</div>
+						<div v-else class="last-msg">{{ getLastMessage(chat).text.slice(0,slicer) + '...' }}</div>
 					</div>
-					<div class="date">{{ toRelative(element.messages[element.messages.length - 1].date) }}</div>
+					<div class="date">{{ toRelative(getLastMessage(chat).date) }}</div>
 				</div>
 			</div>
 		</div>

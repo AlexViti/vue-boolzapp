@@ -122,14 +122,12 @@ const app = new Vue({
 			chat.isTyping = true,
 
 			setTimeout(() => this.reply(chat.id), 5000);
-			chatDisplay.scrollTop = chatDisplay.scrollHeight;
 		},
 		reply(interlocutorId) {
 			const newMessage = new Message('ok', false, DateTime.now())
 			this.idFinder(interlocutorId).messages.push(newMessage);
 			this.sortChats();
 			this.idFinder(interlocutorId).isTyping = false;
-			chatDisplay.scrollTop = chatDisplay.scrollHeight;
 		},
 		idFinder(id) {
 			let result;
@@ -180,5 +178,3 @@ const app = new Vue({
 		this.scrollToEnd();
 	}
 });
-
-// const sortedChats = this.chats.sort((chatA, chatB) => chatB.messages[chatB.messages.length - 1].date - chatA.messages[chatA.messages.length - 1].date)

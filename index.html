@@ -10,6 +10,11 @@
 
 	<title>Boolzapp</title>
 
+	<!-- Lato, Google Font  -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -69,7 +74,7 @@
 						<div class="username">{{ element.user.name }}</div>
 						<div class="last-msg">{{ element.messages[element.messages.length - 1].text }}</div>
 					</div>
-					<div class="date">{{ element.messages[element.messages.length - 1].date.toLocaleTimeString().slice(0, -3) }}</div>
+					<div class="date">{{ element.messages[element.messages.length - 1].date }}</div>
 				</div>
 			</div>
 		</div>
@@ -83,7 +88,7 @@
 					<img :src="chats[chatIndex].user.avatar" :alt="chats[chatIndex].user.name" class="avatar">
 					<div>
 						<div class="username">{{ chats[chatIndex].user.name }}</div>
-						<div class="last-access">Ultimo accesso oggi alle {{ chats[chatIndex].lastAccess.toLocaleTimeString().slice(0, -3) }}</div>
+						<div class="last-access">Ultimo accesso oggi alle {{ chats[chatIndex].lastAccess }}</div>
 					</div>
 				</div>
 
@@ -98,14 +103,15 @@
 			<div class="chat-display">
 				<div v-for="(element,index) in chats[chatIndex].messages" class="message" :class="element.sent ? 'my-message' : 'received-message'">
 					<div class="text">{{ element.text }}</div>
-					<div class="date">{{ element.date.toLocaleTimeString().slice(0, -3) }}</div>
+					<div class="date">{{ element.date }}</div>
 				</div>
 			</div>
 
 			<footer class="new-message flex-align-center">
 				<button class="btn"><i class="fa-regular fa-face-smile"></i></button>
-				<input type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
-				<button class="btn"><i class="fa-solid fa-microphone"></i></button>
+				<input @keyup.enter="newMessage" v-model="newMessageText" type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
+				<button v-if="newMessageText == ''" class="btn fix-width"><i class="fa-solid fa-microphone"></i></button>
+				<button @click="newMessage" v-if="newMessageText != ''" class="btn fix-width"><img src="img/paper-plane-top.png" alt=""></button>
 			</footer>
 		</div>
 	</div>

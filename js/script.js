@@ -1,5 +1,3 @@
-const now = new Date(Date.now());
-const today = [now.getFullYear(), now.getMonth(), now.getDay()];
 class User {
 	constructor (name, avatarNumb) {
 		this.name = name;
@@ -24,59 +22,76 @@ const app = new Vue({
 				user: new User('Michele', 1),
 				messages: [
 					new Message('Hai portato a spasso il cane?',
-						true, new Date(...today, 15, 30)
+						true, '12:00'
 					),
 					new Message('Ricordati di stendere i panni',
-						true, new Date(...today, 15, 50)
+						true, '12:00'
 					),
 					new Message('Tutto fatto!', 
-						false, new Date(...today, 22, 15)
+						false, '12:00'
 					),
 				],
-				lastAccess: new Date(...today, 12, 0)
+				lastAccess: '12:00',
+				id: 1
 			},
 			{
 				user: new User('Fabio', 2),
-				messages: [new Message('Ultimo messaggio', false, new Date(...today, 8, 0))],
-				lastAccess: new Date(...today, 12, 0)
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
+				lastAccess: '12:00',
+				id: 2
 			},
 			{
 				user: new User('Alessandro L.', 3),
-				messages: [new Message('Ultimo messaggio', false, new Date(...today, 14, 0))],
-				lastAccess: new Date(...today, 12, 0)
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
+				lastAccess: '12:00',
+				id: 3
 			},
 			{
 				user: new User('Alessandro B.', 4),
-				messages: [new Message('Ultimo messaggio', false, new Date(...today, 17, 0))],
-				lastAccess: new Date(...today, 12, 0)
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
+				lastAccess: '12:00',
+				id: 4
 			},
 			{
 				user: new User('Sofia', 5),
-				messages: [new Message('Ultimo messaggio', false, new Date(...today, 13, 0))],
-				lastAccess: new Date(...today, 12, 0)
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
+				lastAccess: '12:00',
+				id: 5
 			},
 			{
 				user: new User('Claudia', 6),
-				messages: [new Message('Ultimo messaggio', false, new Date(...today, 16, 0))],
-				lastAccess: new Date(...today, 12, 0)
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
+				lastAccess: '12:00',
+				id: 6
 			},
 			{
 				user: new User('Federico', 7),
-				messages: [new Message('Ultimo messaggio', false, new Date(...today, 11, 0))],
-				lastAccess: new Date(...today, 12, 0)
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
+				lastAccess: '12:00',
+				id: 7
 			},
 			{
 				user: new User('Davide', 8),
-				messages: [new Message('Ultimo messaggio', false, new Date(...today, 7, 0))],
-				lastAccess: new Date(...today, 12, 0)
+				messages: [new Message('Ultimo messaggio', false, '12:00')],
+				lastAccess: '12:00',
+				id:  8
 			},
 		],
-		chatIndex: 0
+		chatIndex: 0,
+		newMessageText: ''
 	},
 	methods: {
 		displayedChats() {
-			const sortedChats = this.chats.sort((chatA, chatB) => chatB.messages[chatB.messages.length - 1].date - chatA.messages[chatA.messages.length - 1].date)
-			return sortedChats.filter(chat => (chat.user.name.toLowerCase().startsWith(this.searchChat.trim().toLowerCase())));
+			return this.chats.filter(chat => (chat.user.name.toLowerCase().startsWith(this.searchChat.trim().toLowerCase())));
+		},
+		newMessage() {
+			if(this.newMessageText != '') {
+				const newMessage = new Message(this.newMessageText.trim(), true, '12:00')
+				this.chats[this.chatIndex].messages.push(newMessage);
+			}
+			this.newMessageText = '';
 		}
 	}
 });
+
+// const sortedChats = this.chats.sort((chatA, chatB) => chatB.messages[chatB.messages.length - 1].date - chatA.messages[chatA.messages.length - 1].date)

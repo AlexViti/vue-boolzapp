@@ -141,10 +141,6 @@ input[type=text] {
 	border-radius: 2px;
 }
 
-textarea:focus, input[type=text]:focus {
-	outline: none;
-}
-
 .chat-display,
 .chats-wrapper {
 	flex-grow: 1;
@@ -219,9 +215,21 @@ textarea:focus, input[type=text]:focus {
 }
 
 .new-message input {
-	font-size: 1.2rem;
+	font-size: 1.2em;
+	padding: .7em;
 }
 
 .new-message button{
 	margin: 0 2rem;
+	font-size: 1.6em;
+}
+
+.fix-width {
+	width: 30px;
+}
+
+.btn img {
+	height: 30px;
+	opacity: .4;
+
 }

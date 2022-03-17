@@ -23,6 +23,8 @@ class Message {
 /*
 VUE APP
 */
+Vue.use(EmojiPicker);
+
 const app = new Vue({
 	el: '#root',
 	data: {

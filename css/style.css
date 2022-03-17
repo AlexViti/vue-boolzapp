@@ -12,6 +12,8 @@ html {
 	--light-brown: #efeae2;
 	--gray-color: #b1b1b1;
 	--notification-banner-color: #8edafc;
+	--darker-green: #005c4b;
+	--lighter-green: #d5f9ba;
 	
 	--container-border: #d6d6d6;
 	
@@ -19,12 +21,11 @@ html {
 	--bg-bottom: #eae6df;
 	--bg-bottom-deeper: #d1d7db;
 	--bg-chat-selected: #e9ebeb;
-	--bg-my-message: #d5f9ba;
-	--bg-header: #eaeaea;
-	--bg-footer: #f3eeea;
+	--bg-my-message: var(--lighter-green);
+	--bg-header-footer: #f0f2f5;
 	--bg-theme: white;
 	--bg-chat: var(--light-brown);
-	--bg-chat-opacity: .6;
+	--bg-chat-opacity: .4;
 
 	--bg-top-height: 145px;
 	--avatar-size: 50px;
@@ -89,7 +90,7 @@ body {
 }
 
 header {
-	background-color: var(--bg-header);
+	background-color: var(--bg-header-footer);
 }
 
 .user {
@@ -191,10 +192,10 @@ input[type=text] {
 	content: "";
 	background-image: url('../img/bg-tile.png');
 	position: absolute;
-	top: 0px;
-	right: 0px;
-	bottom: 0px;
-	left: 0px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	opacity: var(--bg-chat-opacity);
 }
 
@@ -207,6 +208,8 @@ input[type=text] {
 
 	border-radius: 8px;
 	flex-direction: column;
+
+	box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.47);
 }
 
 .message:hover::before {
@@ -241,26 +244,23 @@ input[type=text] {
 	border-top-right-radius: 0;
 }
 
-.my-message::after {
+.message::after {
 	position: absolute;
 	top: 0;
-	left: 100%;
 	content: '';
 	width: 0;
 	height: 0;
 	border-style: solid;
+}
+
+.my-message::after {
+	left: 100%;
 	border-width: 13px 13px 0 0;
 	border-color: var(--bg-my-message) transparent transparent transparent;
 }
 
 .received-message::after {
-	position: absolute;
-	top: 0;
 	right: 100%;
-	content: '';
-	width: 0;
-	height: 0;
-	border-style: solid;
 	border-width: 0 13px 13px 0;
 	border-color: transparent var(--bg-theme) transparent transparent;
 }
@@ -282,7 +282,7 @@ input[type=text] {
 }
 
 footer {
-	background-color: var(--bg-footer);
+	background-color: var(--bg-header-footer);
 }
 
 .new-message input {
@@ -349,5 +349,5 @@ footer {
 	--bg-theme: #111b21;
 	--bg-chat: var(--bg-theme);
 	--bg-chat-opacity: .03;
-	--bg-my-message: #005c4b;
+	--bg-my-message: var(--darker-green);
 }

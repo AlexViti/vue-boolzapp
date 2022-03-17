@@ -111,16 +111,6 @@
 						<div class="text">{{ message.text }}</div>
 						<div class="date" :key="dateUpdate">{{ toRelative(message.date) }}</div>
 					</div>
-
-					<div v-if="isMenuOpen" class="menu-on-click" 
-						:style="{top: menuY + 'px', left: menuX + 'px'}">
-
-						<div @click.stop="infoToggle = !infoToggle" class="info-toggle">
-							<div v-if="infoToggle" class="info">Inviato il {{ idFinder(currentId).messages[messageMenuIndex].date.setLocale('it').toLocaleString(dateFormat) }}</div>
-							Info
-						</div>
-						<div @click.stop="deleteMessage">Cancella</div>
-					</div>
 				</div>
 
 				<footer>
@@ -139,10 +129,20 @@
 
 				</footer>
 			</div>
+			<div v-if="isMenuOpen" class="menu-on-click" 
+			:style="{top: menuY + 'px', left: menuX + 'px'}">
 
+				<div @click.stop="infoToggle = !infoToggle" class="info-toggle">
+					<div v-if="infoToggle" class="info">Inviato il {{ idFinder(currentId).messages[messageMenuIndex].date.setLocale('it').toLocaleString(dateFormat) }}</div>
+					Info
+				</div>
+				<div @click.stop="deleteMessage">Cancella</div>
+			</div>
 		</div>
 	</div>
 	<!-- SCRIPTS -->
+	<!-- Emoji Picker -->
+	<script src="https://unpkg.com/vue-emoji-picker/dist/vue-emoji-picker.js"></script>
 	<!-- Luxon date library -->
 	<script src="https://cdn.jsdelivr.net/npm/luxon@2.3.1/build/global/luxon.min.js"></script>
 	<!-- VUE CDN: development version, includes helpful console warnings -->

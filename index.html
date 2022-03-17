@@ -25,7 +25,7 @@
 <body>
 
 	<!-- Vue app container -->
-	<div @click="isMenuOpen = false, infoToggle = false" id="root">
+	<div :class="{'dark-mode': darkMode}" @click="isMenuOpen = false, infoToggle = false" id="root">
 
 		<div class="wrapper">
 		<!-- Container with a header, a banner and a chats list with a search-bar -->

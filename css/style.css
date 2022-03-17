@@ -9,6 +9,12 @@ html {
 }
 
 :root {
+	--light-brown: #efeae2;
+	--gray-color: #b1b1b1;
+	--notification-banner-color: #8edafc;
+	
+	--container-border: #d6d6d6;
+	
 	--bg-top: #00a884;
 	--bg-bottom: #eae6df;
 	--bg-bottom-deeper: #d1d7db;
@@ -16,24 +22,12 @@ html {
 	--bg-my-message: #d5f9ba;
 	--bg-header: #eaeaea;
 	--bg-footer: #f3eeea;
-	--notification-banner-color: #8edafc;
-	--gray-color: #b1b1b1;
-	--container-border: #d6d6d6;
+	--bg-theme: white;
+	--bg-chat: var(--light-brown);
+	--bg-chat-opacity: .6;
 
 	--bg-top-height: 145px;
 	--avatar-size: 50px;
-}
-
-.btn {
-	cursor: pointer;
-	
-	margin: 0 .5rem;
-	border: none;
-	padding: 0;
-
-	color: var(--gray-color);
-	background-color: transparent;
-	font-size: 1.2rem;
 }
 
 body {
@@ -43,8 +37,8 @@ body {
 		var(--bg-top) var(--bg-top-height),
 		var(--bg-bottom) var(--bg-top-height),
 		var(--bg-bottom-deeper) 100%
-	);
-	height: 100vh;
+		);
+		height: 100vh;
 	padding: 2rem;
 }
 
@@ -57,8 +51,20 @@ body {
 	height: 100%;
 	display: flex;
 	margin: 0 auto;
+	
+	background-color: var(--bg-theme);
+}
 
-	background-color: white;
+.btn {
+	cursor: pointer;
+	
+	margin: 0 .5rem;
+	border: none;
+	padding: 0;
+
+	color: var(--gray-color);
+	background-color: transparent;
+	font-size: 1.2rem;
 }
 
 .flex-align-center {
@@ -112,7 +118,7 @@ header {
 	text-align: center;
 	color: var(--notification-banner-color);
 
-	background-color: white;
+	background-color: var(--bg-theme);
 }
 
 .last-access,
@@ -126,7 +132,7 @@ header {
 }
 
 .search-label {
-	background-color: white;
+	background-color: var(--bg-theme);
 	border-radius: 2px;
 	padding: .3em 1em;
 	font-size: 1rem;
@@ -172,11 +178,24 @@ input[type=text] {
 
 .chat-display {
 	padding: 2rem 4rem;
+	
+	position: relative;
 
 	display: flex;
 	flex-direction: column;
 
-	background: url('../img/mine.jpg');
+	background-color: var(--bg-chat);
+}
+
+.chat-display::before {    
+	content: "";
+	background-image: url('../img/bg-tile.png');
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	opacity: var(--bg-chat-opacity);
 }
 
 .message {
@@ -190,7 +209,7 @@ input[type=text] {
 	flex-direction: column;
 }
 
-.message:hover::after {
+.message:hover::before {
 	content: url("data:image/svg+xml; utf8, <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\"><!--! Font Awesome Pro 6.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path fill=\"gray\" d=\"M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z\"/></svg>");
 	position: absolute;
 	top: .4em;
@@ -209,15 +228,41 @@ input[type=text] {
 }
 
 .received-message {
-	background-color: white;
+	background-color: var(--bg-theme);
 	align-self: flex-start;
 	margin-right: 1.5rem;
+	border-top-left-radius: 0;
 }
 
 .my-message {
 	background-color: var(--bg-my-message);
 	align-self: flex-end;
 	margin-left: 1.5rem;
+	border-top-right-radius: 0;
+}
+
+.my-message::after {
+	position: absolute;
+	top: 0;
+	left: 100%;
+	content: '';
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 13px 13px 0 0;
+	border-color: var(--bg-my-message) transparent transparent transparent;
+}
+
+.received-message::after {
+	position: absolute;
+	top: 0;
+	right: 100%;
+	content: '';
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 13px 13px 0;
+	border-color: transparent var(--bg-theme) transparent transparent;
 }
 
 .message .text {
@@ -226,7 +271,7 @@ input[type=text] {
 
 .menu-on-click {
 	position: absolute;
-	background-color: white;
+	background-color: var(--bg-theme);
 	border-radius: 5px;
 	margin: -10px 0 0 -10px;
 }
@@ -293,8 +338,16 @@ footer {
 	position: absolute;
 	bottom: 100%;
 	display: block;
-	background-color: white;
+	background-color: var(--bg-theme);
 	white-space: nowrap;
 	margin-left: -1rem;
 	transform: translateX(-30%);
+}
+
+.dark-mode {
+	color: white;
+	--bg-theme: #111b21;
+	--bg-chat: var(--bg-theme);
+	--bg-chat-opacity: .03;
+	--bg-my-message: #005c4b;
 }

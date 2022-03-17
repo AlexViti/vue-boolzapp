@@ -111,6 +111,7 @@ const app = new Vue({
 		messageMenuIndex: '',
 		dateUpdate: 0,
 		dateFormat: DateTime.DATETIME_MED,
+		darkMode: false,
 	},
 	methods: {
 

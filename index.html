@@ -25,109 +25,122 @@
 <body>
 
 	<!-- Vue app container -->
-	<div @click="closeMenu" id="root">
+	<div @click="isMenuOpen = false, infoToggle = false" id="root">
 
 		<div class="wrapper">
 		<!-- Container with a header, a banner and a chats list with a search-bar -->
-		<div class="left-container">
+			<div class="left-container">
 
-			<!-- Header with user's profile and buttons -->
-			<header class="flex-align-center">
+				<!-- Header with user's profile and buttons -->
+				<header class="flex-align-center">
 
-				<div class="user flex-align-center">
-					<!-- User's avatar -->
-					<img :src="myUser.avatar" :alt="myUser.name" class="avatar">
-					<!-- User's name -->
-					<div class="username">Alessio</div>
-				</div>
-				<!-- Buttons on the right -->
-				<div class="btns">
-					<button class="btn"><i class="fa-solid fa-circle-notch"></i></button>
-					<button class="btn"><i class="fa-solid fa-message"></i></button>
-					<button class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-				</div>
-
-			</header>
-
-			<!-- Banner asking you to turn on notification -->
-			<div class="notification flex-align-center">
-				<div class="notification-bell"><i class="fa-solid fa-bell-slash"></i></div>
-				<div>
-					<div>Ricevi notifiche di nuovi messaggi</div>
-					<a href="#">Attiva notifiche desktop</a>
-				</div>
-			</div>
-
-			<!-- Search-bar for chats with a text input and a button -->
-			<div class="search-bar flex-align-center">
-				<label for="search-input" class="search-label"><i class="fa-solid fa-magnifying-glass"></i></label>
-				<input v-model="searchChat" type="text" id="search-input" placeholder="Cerca o inizia una nuova chat">
-			</div>
-
-			<!-- Chats container -->
-			<div class="chats-wrapper">
-				<div v-for="chat in displayedChats()"
-					@click="currentId = chat.id" 
-					class="chat flex-align-center" :class="{selected : chat.id == currentId}">
-					
-					<img :src="chat.user.avatar" :alt="chat.user.name" class="avatar">
-					<div>
-						<div class="username">{{ chat.user.name }}</div>
-						<div v-if="getLastMessage(chat).text.length < slicer" class="last-msg">{{ getLastMessage(chat).text }}</div>
-						<div v-else class="last-msg">{{ getLastMessage(chat).text.slice(0,slicer) + '...' }}</div>
+					<div class="user flex-align-center">
+						<!-- User's avatar -->
+						<img :src="myUser.avatar" :alt="myUser.name" class="avatar">
+						<!-- User's name -->
+						<div class="username">Alessio</div>
 					</div>
-					<div class="date">{{ toRelative(getLastMessage(chat).date) }}</div>
-				</div>
-			</div>
-		</div>
+					<!-- Buttons on the right -->
+					<div class="btns">
+						<button class="btn"><i class="fa-solid fa-circle-notch"></i></button>
+						<button class="btn"><i class="fa-solid fa-message"></i></button>
+						<button class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+					</div>
 
-		<!-- Container with an header with interlocutor infos, the chat display and a footer with new message input -->
-		<div class="right-container">
+				</header>
 
-			<!-- Interlocutor infos -->
-			<header class="flex-align-center">
-				<div class="user flex-align-center">
-					<img :src="idFinder(currentId).user.avatar" :alt="idFinder(currentId).user.name" class="avatar">
+				<!-- Banner asking you to turn on notification -->
+				<div class="notification flex-align-center">
+					<div class="notification-bell"><i class="fa-solid fa-bell-slash"></i></div>
 					<div>
-						<div class="username">{{ idFinder(currentId).user.name }}</div>
-						<div class="last-access">Ultimo accesso {{ toRelative(idFinder(currentId).lastAccess) }}</div>
+						<div>Ricevi notifiche di nuovi messaggi</div>
+						<a href="#">Attiva notifiche desktop</a>
 					</div>
 				</div>
 
-				<!-- Utility buttons on the right -->
-				<div class="btns">
-					<button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-					<button class="btn"><i class="fa-solid fa-paperclip"></i></button>
-					<button class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+				<!-- Search-bar for chats with a text input and a button -->
+				<div class="search-bar flex-align-center">
+					<label for="search-input" class="search-label"><i class="fa-solid fa-magnifying-glass"></i></label>
+					<input v-model="searchChat" type="text" id="search-input" placeholder="Cerca o inizia una nuova chat">
 				</div>
-			</header>
 
-			<div class="chat-display" ref="container">
-				<div v-for="(message, i) in idFinder(currentId).messages" 
-						@click.stop="menuToggle(i, $event)"
-						class="message" :class="message.sent ? 'my-message' : 'received-message'"
-				>
-					<div class="text">{{ message.text }}</div>
-					<div class="date">{{ toRelative(message.date) }}</div>
+				<!-- Chats container -->
+				<div class="chats-wrapper">
+					<div v-for="chat in displayedChats()"
+						@click="currentId = chat.id" 
+						class="chat flex-align-center" :class="{selected : chat.id == currentId}">
+						
+						<img :src="chat.user.avatar" :alt="chat.user.name" class="avatar">
+						<div>
+							<div class="username">{{ chat.user.name }}</div>
+							<div v-if="getLastMessage(chat).text.length < slicer" class="last-msg">{{ getLastMessage(chat).text }}</div>
+							<div v-else class="last-msg">{{ getLastMessage(chat).text.slice(0,slicer) + '...' }}</div>
+						</div>
+						<div class="date" :key="dateUpdate">{{ toRelative(getLastMessage(chat).date) }}</div>
+					</div>
 				</div>
 			</div>
-			<footer>
-				<div v-if="idFinder(currentId).isTyping" class="is-typing">{{ idFinder(currentId).user.name }} sta scrivendo</div>
-				<div class="new-message flex-align-center">
-					<button class="btn"><i class="fa-regular fa-face-smile"></i></button>
-					<input @keyup.enter="newMessage" v-model="idFinder(currentId).newMessageText" type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
-					<button v-if="idFinder(currentId).newMessageText.trim() == ''" class="btn fix-width"><i class="fa-solid fa-microphone"></i></button>
-					<button @click="newMessage" v-else class="btn fix-width"><img src="img/paper-plane-top.png" alt=""></button>
+
+			<!-- Container with an header with interlocutor infos, the chat display and a footer with new message input -->
+			<div class="right-container">
+
+				<!-- Interlocutor infos -->
+				<header class="flex-align-center">
+					<div class="user flex-align-center">
+						<img :src="idFinder(currentId).user.avatar" :alt="idFinder(currentId).user.name" class="avatar">
+						<div>
+							<div class="username">{{ idFinder(currentId).user.name }}</div>
+							<div class="last-access" :key="dateUpdate">Ultimo accesso {{ toRelative(idFinder(currentId).lastAccess) }}</div>
+						</div>
+					</div>
+
+					<!-- Utility buttons on the right -->
+					<div class="btns">
+						<button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<button class="btn"><i class="fa-solid fa-paperclip"></i></button>
+						<button class="btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+					</div>
+				</header>
+
+				<div class="chat-display" ref="container">
+
+					<div v-for="(message, i) in idFinder(currentId).messages" 
+						  @click.stop="menuToggle(i, $event), infoToggle = false"
+						  class="message" :class="message.sent ? 'my-message' : 'received-message'">
+
+						<div class="text">{{ message.text }}</div>
+						<div class="date" :key="dateUpdate">{{ toRelative(message.date) }}</div>
+					</div>
+
+					<div v-if="isMenuOpen" class="menu-on-click" 
+						:style="{top: menuY + 'px', left: menuX + 'px'}">
+
+						<div @click.stop="infoToggle = !infoToggle" class="info-toggle">
+							<div v-if="infoToggle" class="info">Inviato il {{ idFinder(currentId).messages[messageMenuIndex].date.setLocale('it').toLocaleString(dateFormat) }}</div>
+							Info
+						</div>
+						<div @click.stop="deleteMessage">Cancella</div>
+					</div>
 				</div>
-			</footer>
+
+				<footer>
+
+					<div v-if="idFinder(currentId).isTyping" class="is-typing">{{ idFinder(currentId).user.name }} sta scrivendo</div>
+
+					<div class="new-message flex-align-center">
+
+						<button class="btn"><i class="fa-regular fa-face-smile"></i></button>
+						<input @keyup.enter="newMessage" v-model="idFinder(currentId).newMessageText" type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
+
+						<button v-if="idFinder(currentId).newMessageText.trim() == ''" class="btn fix-width"><i class="fa-solid fa-microphone"></i></button>
+
+						<button @click="newMessage" v-else class="btn fix-width"><img src="img/paper-plane-top.png" alt=""></button>
+					</div>
+
+				</footer>
+			</div>
+
 		</div>
-		<div v-if="isMenuOpen" class="menu-on-click"
-			:style="{top: menuY + 'px',
-					  left: menuX + 'px'
-		}">
-			<div @click.stop="deleteMessage">Cancella</div>
-		</div>
-	</div>
 	</div>
 	<!-- SCRIPTS -->
 	<!-- Luxon date library -->

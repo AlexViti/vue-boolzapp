@@ -284,3 +284,17 @@ footer {
 	  width: 20px;    
 	}
  }
+
+.info-toggle {
+	position: relative;
+}
+
+.info {
+	position: absolute;
+	bottom: 100%;
+	display: block;
+	background-color: white;
+	white-space: nowrap;
+	margin-left: -1rem;
+	transform: translateX(-30%);
+}

@@ -1,3 +1,4 @@
+// LUXON LIBRARY
 const DateTime = luxon.DateTime;
 const launchDate = DateTime.now();
 
@@ -5,9 +6,10 @@ const launchDate = DateTime.now();
 CLASSES DEFINITION
 */
 class User {
-	constructor (name, avatarNumb) {
+	constructor (name, id) {
 		this.name = name;
-		this.avatar = `img/avatar/avatar_${avatarNumb}.jpg`;
+		this.id = id;
+		this.avatar = `img/avatar/avatar_${id}.jpg`;
 	}
 }
 class Message {
@@ -96,64 +98,51 @@ const app = new Vue({
 				lastAccess: launchDate.minus({hours: 1, minutes: 30}),
 				isTyping: false,
 				newMessageText: '',
-			},
-			// {
-			// 	id: 5,
-			// 	user: new User('Sofia', 5),
-			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
-			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			// },
-			// {
-			// 	id: 6,
-			// 	user: new User('Claudia', 6),
-			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
-			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			// },
-			// {
-			// 	id: 7,
-			// 	user: new User('Federico', 7),
-			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
-			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			// },
-			// {
-			// 	id: 8,
-			// 	user: new User('Davide', 8),
-			// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({years: 1, hours: 1, minutes: 30}))],
-			// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
-			// },
+			}
 		],
 		sortedChats: [],
 		currentId: 1,
 		ids: [],
 		slicer: 35,
 		isMenuOpen: false,
+		infoToggle: false,
 		menuX: 0,
 		menuY: 0,
 		messageMenuIndex: '',
+		dateUpdate: 0,
+		dateFormat: DateTime.DATETIME_MED,
 	},
 	methods: {
-		displayedChats() { //FILTER CHATS BY SEARCH INPUT
+
+		sortChats() {
+			this.sortedChats = this.chats.sort((chatA, chatB) => chatB.messages[chatB.messages.length - 1].date - chatA.messages[chatA.messages.length - 1].date)
+		},
+		// Filter chats by search input
+		displayedChats() {
 			return this.sortedChats.filter(chat => (chat.user.name.toLowerCase().startsWith(this.searchChat.trim().toLowerCase())));
 		},
+
 		newMessage() {
 			const chat = this.idFinder(this.currentId);
 			if(chat.newMessageText != '') {
-				const newMessage = new Message(chat.newMessageText.trim(), true, DateTime.now())
+				const newMessage = new Message(chat.newMessageText.trim(), true, DateTime.now());
 				chat.messages.push(newMessage);
 			}
 			chat.newMessageText = '';
 
 			this.sortChats();
-			chat.isTyping = true,
+			chat.isTyping = true;
 
 			setTimeout(() => this.reply(chat.id), 5000);
 		},
+
 		reply(interlocutorId) {
 			const newMessage = new Message('ok', false, DateTime.now())
 			this.idFinder(interlocutorId).messages.push(newMessage);
 			this.sortChats();
 			this.idFinder(interlocutorId).isTyping = false;
 		},
+		// Given an id, return the corrisponding chat obj
 		idFinder(id) {
 			let result;
 			this.chats.forEach(chat => {
@@ -163,24 +152,23 @@ const app = new Vue({
 			});
 			return result;
 		},
+		// Return a string in Italian with how long ago a date was
 		toRelative: (date) => date.diffNow().as('minutes') > -1 ? 'adesso' : date.toRelative({locale: 'it'}),
-		sortChats() {
-			this.sortedChats = this.chats.sort((chatA, chatB) => chatB.messages[chatB.messages.length - 1].date - chatA.messages[chatA.messages.length - 1].date)
-		},
+
 		getLastMessage: (chat) => chat.messages[chat.messages.length - 1],
+		
 		scrollToEnd () {
 			const content = this.$refs.container;
 			content.scrollTop = content.scrollHeight;
 		},
+
 		menuToggle(messageIndex, event) {
 			this.isMenuOpen = !this.isMenuOpen;
 			this.messageMenuIndex = messageIndex;
 			this.menuX = event.pageX;
 			this.menuY = event.pageY;
 		},
-		closeMenu() {
-			this.isMenuOpen = false;
-		},
+
 		deleteMessage() {
 			const chats = this.chats;
 			const chat = this.idFinder(this.currentId);
@@ -190,16 +178,49 @@ const app = new Vue({
 				chats.splice(chats.indexOf(chat), 1)
 				this.currentId = chats[0].id;
 			}
+		},
+		// Refresh relative date every minute
+		update() {
+			this.dateUpdate++;
 		}
 	},
+
 	created: function() {
 		this.ids = this.chats.map(chat => chat.id)
 		this.sortChats();
+		const dateUpdateInterval = setInterval(this.update, 60000);
 	},
+
 	updated: function() {
 		this.scrollToEnd();
 	},
+
 	mounted: function() {
 		this.scrollToEnd();
 	}
 });
+
+// {
+// 	id: 5,
+// 	user: new User('Sofia', 5),
+// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+// },
+// {
+// 	id: 6,
+// 	user: new User('Claudia', 6),
+// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+// },
+// {
+// 	id: 7,
+// 	user: new User('Federico', 7),
+// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({hours: 1, minutes: 30}))],
+// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+// },
+// {
+// 	id: 8,
+// 	user: new User('Davide', 8),
+// 	messages: [new Message('Ultimo messaggio', false, launchDate.minus({years: 1, hours: 1, minutes: 30}))],
+// 	lastAccess: launchDate.minus({hours: 1, minutes: 30}),
+// },

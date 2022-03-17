@@ -114,6 +114,7 @@ const app = new Vue({
 		dateUpdate: 0,
 		dateFormat: DateTime.DATETIME_MED,
 		darkMode: false,
+      search: '',
 	},
 	methods: {
 
@@ -185,6 +186,10 @@ const app = new Vue({
 		// Refresh relative date every minute
 		update() {
 			this.dateUpdate++;
+		},
+
+		append(emoji) {
+			this.idFinder(this.currentId).newMessageText += emoji;
 		}
 	},
 

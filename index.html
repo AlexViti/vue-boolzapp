@@ -119,7 +119,32 @@
 
 					<div class="new-message flex-align-center">
 
-						<button class="btn"><i class="fa-regular fa-face-smile"></i></button>
+						<emoji-picker @emoji="append" :search="search">
+							<button class="btn emoji-invoker" slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }"
+								@click.stop="clickEvent">
+								<i class="fa-regular fa-face-smile"></i>
+							</button>
+							<div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+								<div class="emoji-picker">
+									<div class="emoji-picker__search">
+										<input type="text" v-model="search" v-focus>
+									</div>
+									<div>
+										<div v-for="(emojiGroup, category) in emojis" :key="category">
+											<h5>{{ category }}</h5>
+											<div class="emojis">
+												<span v-for="(emoji, emojiName) in emojiGroup" :key="emojiName" @click="insert(emoji)"
+													:title="emojiName">{{ emoji }}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</emoji-picker>
+
+						
+
+						
 						<input @keyup.enter="newMessage" v-model="idFinder(currentId).newMessageText" type="text" name="new-message" id="new-message-input" placeholder="Scrivi un messaggio">
 
 						<button v-if="idFinder(currentId).newMessageText.trim() == ''" class="btn fix-width"><i class="fa-solid fa-microphone"></i></button>
@@ -151,3 +176,12 @@
 	<script src="js/script.js"></script>
 </body>
 </html>
+
+
+<!-- <div class="dark-menu">
+	<label class="switch">
+		<input v-model="darkMode" type="checkbox">
+		<div class="slider"></div>
+		<div class="bg"></div>
+	</label>
+</div> -->

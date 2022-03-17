@@ -14,16 +14,17 @@ html {
 	--notification-banner-color: #8edafc;
 	--darker-green: #005c4b;
 	--lighter-green: #d5f9ba;
-	
+
 	--container-border: #d6d6d6;
 	
+	--bg-theme: white;
 	--bg-top: #00a884;
 	--bg-bottom: #eae6df;
 	--bg-bottom-deeper: #d1d7db;
 	--bg-chat-selected: #e9ebeb;
 	--bg-my-message: var(--lighter-green);
+	--bg-received-msg: var(--bg-theme);
 	--bg-header-footer: #f0f2f5;
-	--bg-theme: white;
 	--bg-chat: var(--light-brown);
 	--bg-chat-opacity: .4;
 
@@ -209,7 +210,7 @@ input[type=text] {
 	border-radius: 8px;
 	flex-direction: column;
 
-	box-shadow: 3px 3px 10px 0 rgba(0,0,0,0.47);
+	box-shadow: 2px 2px 12px 0 #00000055;
 }
 
 .message:hover::before {
@@ -231,7 +232,7 @@ input[type=text] {
 }
 
 .received-message {
-	background-color: var(--bg-theme);
+	background-color: var(--bg-received-msg);
 	align-self: flex-start;
 	margin-right: 1.5rem;
 	border-top-left-radius: 0;
@@ -255,14 +256,14 @@ input[type=text] {
 
 .my-message::after {
 	left: 100%;
-	border-width: 13px 13px 0 0;
+	border-width: 10px 10px 0 0;
 	border-color: var(--bg-my-message) transparent transparent transparent;
 }
 
 .received-message::after {
 	right: 100%;
-	border-width: 0 13px 13px 0;
-	border-color: transparent var(--bg-theme) transparent transparent;
+	border-width: 0 10px 10px 0;
+	border-color: transparent var(--bg-received-msg) transparent transparent;
 }
 
 .message .text {
@@ -344,10 +345,159 @@ footer {
 	transform: translateX(-30%);
 }
 
+.emoji-invoker {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.emoji-invoker:hover {
+  transform: scale(1.1);
+}
+.emoji-invoker > svg {
+  fill: #b1c6d0;
+}
+
+.emoji-picker {
+	position: absolute;
+	bottom: 100px;
+	z-index: 1;
+	font-family: Montserrat;
+	border: 1px solid #ccc;
+	width: 15rem;
+	height: 20rem;
+	overflow-x: hidden;
+	padding: 1rem;
+	box-sizing: border-box;
+	border-radius: 0.5rem;
+	background: #fff;
+	box-shadow: 1px 1px 8px #c7dbe6;
+}
+.emoji-picker__search {
+	display: flex;
+}
+.emoji-picker__search > input {
+	width: 50px;
+	border-radius: 10rem;
+	border: 1px solid #ccc;
+	padding: 0.5rem 1rem;
+	outline: none;
+}
+.emoji-picker h5 {
+	margin-bottom: 0;
+	color: #b1b1b1;
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	cursor: default;
+}
+.emoji-picker .emojis {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.emoji-picker .emojis:after {
+	content: "";
+	flex: auto;
+}
+.emoji-picker .emojis span {
+	padding: 0.2rem;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.emoji-picker .emojis span:hover {
+	background: #ececec;
+	cursor: pointer;
+}
+
+
+
+/* 
+NIGHT THEME SWITCH
+
 .dark-mode {
+	color-scheme: dark;
 	color: white;
 	--bg-theme: #111b21;
 	--bg-chat: var(--bg-theme);
 	--bg-chat-opacity: .03;
 	--bg-my-message: var(--darker-green);
+	--bg-header-footer: #202c33;
+	--bg-received-msg: #212d33;
 }
+
+.dark-menu {
+	position: absolute;
+	background-color: var(--bg-theme);
+	height: 60px;
+	width: 100px;
+	z-index: 100;
+}
+
+.switch {
+	--orange: #ffc207;
+	--dark-purple: #27173a;
+
+	position: absolute;
+	display: inline-block;
+	width: 80px;
+	height: 40px;
+	border-radius: 50px;
+	overflow: hidden;
+}
+
+input[type=checkbox] {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	background-color: var(--dark-purple);
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 50px;
+	transition: transform 0.4s;
+	cursor: pointer;
+}
+
+.slider::before {
+	position: absolute;
+	content: "";
+	background-color: var(--orange);
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	left: 5px;
+	bottom: 5px;
+	transition: transform 0.4s;
+}
+
+.slider::after {
+	position: absolute;
+	content: "";
+	height: 30px;
+	width: 30px;
+	background-color: var(--dark-purple);
+	border-radius: 50%;
+	left: -26px;
+	bottom: 4px;
+	transition: transform 0.4s;
+}
+
+input[type=checkbox]:checked + .slider::before {
+	transform: translate(40px);
+}
+
+input[type=checkbox]:checked + .slider::after {
+	transform: translate(60px);
+}
+
+input[type=checkbox]:checked ~ .bg {
+	background-color: var(--bg2);
+}
+*/
